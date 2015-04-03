@@ -66,8 +66,9 @@ public class Operation extends Connect implements IStudentDAO {
         try {
             conn = getConnection();
             stmt = conn.prepareStatement("UPDATE student SET sex=? WHERE id_student=?");
-            stmt.setString(1, new String(new char[]{student.getSex()}));
+            stmt.setString(1,new String( new String(new char[]{student.getSex()})));
             stmt.execute();
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally

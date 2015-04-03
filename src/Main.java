@@ -29,6 +29,8 @@ public class Main {
         for (Students st : listStudent3) {
             System.out.println(st.getFullName());
         }
+        stud.setSex('м');
+        operation.moveSex(stud);
     }
 
 }
