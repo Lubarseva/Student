@@ -1,3 +1,4 @@
+import com.lubarseva.student.bean.Exam;
 import com.lubarseva.student.bean.Students;
 import com.lubarseva.student.bean.Subject;
 
@@ -14,6 +15,7 @@ public class Main {
     public static void main(String[] args) {
         Operation operation = new Operation();
         Students stud = new  Students();
+        Exam exam = new Exam();
         List<Students> listStudent1 = operation.getMiddleStudent();
         List<Students> listStudent2 = operation.getStudentMAth();
         List<Students> listStudent3 = operation.getStudentEnlish();
@@ -31,6 +33,9 @@ public class Main {
         }
         stud.setSex('м');
         operation.moveSex(stud);
+
+        exam.setMark(3);
+        operation.removeStudents(exam);
     }
 
 }

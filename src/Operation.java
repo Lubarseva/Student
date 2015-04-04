@@ -19,7 +19,7 @@ public class Operation extends Connect implements IStudentDAO {
         try {
             conn = getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT DISTINCT student.fullName FROM test  INNER JOIN student ON test.id_student=student.id_student WHERE (test.mark >= 5 AND test.mark <=9);");
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT student.fullName FROM test  INNER JOIN student ON test.id_student=student.id WHERE (test.mark >= 5 AND test.mark <=9);");
             Students student = null;
             while (rs.next()) {
                 student = new Students();
@@ -42,7 +42,7 @@ public class Operation extends Connect implements IStudentDAO {
         try {
             conn = getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT DISTINCT student.fullName FROM test  INNER JOIN student ON test.id_student=student.id_student WHERE (test.id_subject=1);");
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT student.fullName FROM test  INNER JOIN student ON test.id_student=student.id WHERE (test.id_subject=1);");
             Students student = null;
             while (rs.next()) {
                 student = new Students();
@@ -65,7 +65,7 @@ public class Operation extends Connect implements IStudentDAO {
         Connection conn = null;
         try {
             conn = getConnection();
-            stmt = conn.prepareStatement("UPDATE student SET sex=? WHERE id_student=?");
+            stmt = conn.prepareStatement("UPDATE student SET sex=? WHERE id=4");
             stmt.setString(1,new String( new String(new char[]{student.getSex()})));
             stmt.execute();
             stmt.close();
@@ -77,13 +77,13 @@ public class Operation extends Connect implements IStudentDAO {
             closeConnection();
         }
     }
-    public void removeStudents(Students student, int faculty) {
+    public void removeStudents(Exam exam) {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            stmt = conn.prepareStatement("DELETE FROM students WHERE id_student=? AND faculty=?");
-            stmt.setInt(1, student.getId());
-            stmt.setInt(2, faculty);
+            conn = getConnection();
+            stmt = conn.prepareStatement("DELETE FROM test WHERE mark=? ");
+            stmt.setInt(1, exam.getMark());
             stmt.execute();
             stmt.close();
         } catch (SQLException e) {
@@ -100,7 +100,7 @@ public class Operation extends Connect implements IStudentDAO {
         try {
             conn = getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT DISTINCT student.fullName FROM test  INNER JOIN student ON test.id_student=student.id_student WHERE (test.id_subject=3 and (test.mark=9 or test.mark=3));");
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT student.fullName FROM test  INNER JOIN student ON test.id_student=student.id WHERE (test.id_subject=3 and (test.mark=9 or test.mark=3));");
             Students student = null;
             while (rs.next()) {
                 student = new Students();
