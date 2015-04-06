@@ -11,7 +11,7 @@ public class Students {
     private int id;
     private String fullName;
     private Date date;
-    private char sex;
+    private boolean sex;
     private List<Subject> subjectList = new ArrayList<Subject>();
 
     public Students() {
@@ -23,11 +23,11 @@ public class Students {
         this.subjectList = subjectList;
     }
 
-    public char getSex() {
+    public boolean isSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(boolean sex) {
         this.sex = sex;
     }
 

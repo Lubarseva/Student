@@ -24,25 +24,26 @@ public class Main {
         List<Students> listStudent1 = studentDAO.getMiddleStudent();
         List<Students> listStudent2 = studentDAO.getStudentMAth();
         List<Students> listStudent3 = studentDAO.getStudentEnlish();
-        System.out.println("Студенты, у которых оценки по экзамену  от 5 до 9: ");
+        System.out.println("Students who assess exam 5 to 9: ");
         for (Students st : listStudent1) {
             System.out.println(st.getFullName());
         }
-        System.out.println("Студенты, которые сдавали математику: ");
+        System.out.println("Students who have passed the math: ");
         for (Students st : listStudent2) {
             System.out.println(st.getFullName());
         }
-        System.out.println("Студенты, которые получили по английскому  9 и 3: ");
+        System.out.println("Students who have received english 9 and 3: ");
         for (Students st : listStudent3) {
             System.out.println(st.getFullName());
         }
 
-        stud.setSex('1');
+        stud.setSex(true);
         stud.setId(4);
         studentDAO.moveSex(stud);
 
         exam.setMark(3);
         examDAO.removeStudents(exam);
+        examDAO.closeConnection();
     }
 
 }

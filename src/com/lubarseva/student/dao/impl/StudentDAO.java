@@ -33,8 +33,6 @@ public class StudentDAO extends Connect implements IStudentDAO {
             rs.close();
         } catch (SQLException e) {
             System.out.println("SQLConntection Exception. " + e);
-        } finally {
-            closeConnection();
         }
         return studentList;
 
@@ -59,8 +57,6 @@ public class StudentDAO extends Connect implements IStudentDAO {
 
         } catch (SQLException e) {
             System.out.println("SQLConntection Exception. " + e);
-        } finally {
-            closeConnection();
         }
         return studentList;
     }
@@ -84,8 +80,6 @@ public class StudentDAO extends Connect implements IStudentDAO {
 
         } catch (SQLException e) {
             System.out.println("SQLConntection Exception. " + e);
-        } finally {
-            closeConnection();
         }
         return studentList;
     }
@@ -97,15 +91,13 @@ public class StudentDAO extends Connect implements IStudentDAO {
         try {
             conn = getConnection();
             stmt = conn.prepareStatement("UPDATE student SET sex=? WHERE id=?");
-            stmt.setString(1, new String(new char[]{student.getSex()}));
+            stmt.setBoolean(1, student.isSex());
             stmt.setInt(2, student.getId());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             System.out.println(e);
             e.printStackTrace();
-        } finally {
-            closeConnection();
         }
     }
 

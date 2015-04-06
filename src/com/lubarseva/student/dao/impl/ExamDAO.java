@@ -26,8 +26,5 @@ public class ExamDAO extends Connect implements IExamDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        finally {
-            closeConnection();
-        }
     }
 }
