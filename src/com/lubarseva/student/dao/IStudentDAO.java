@@ -12,6 +12,6 @@ public interface IStudentDAO {
     public List<Students> getStudentMAth();
     public List<Students> getStudentEnlish();
     public void moveSex(Students student);
-    public void removeStudents(Exam exam);
+
 
 }

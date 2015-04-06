@@ -1,13 +1,14 @@
+package com.lubarseva.student;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Created by Администратор on 31.03.2015.
+ * Created by Администратор on 06.04.2015.
  */
 public class Connect {
     private Connection conn = null;
-    private Connection connection;
     private final static String url = "jdbc:mysql://localhost:3306/university?useUnicode=true&characterEncoding=UTF-8";
     private final static String user = "root";
     private final static String password = "root";

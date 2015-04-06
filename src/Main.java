@@ -1,6 +1,8 @@
 import com.lubarseva.student.bean.Exam;
 import com.lubarseva.student.bean.Students;
 import com.lubarseva.student.bean.Subject;
+import com.lubarseva.student.dao.impl.ExamDAO;
+import com.lubarseva.student.dao.impl.StudentDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,13 +15,16 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        Operation operation = new Operation();
-        Students stud = new  Students();
+        StudentDAO studentDAO = new StudentDAO();
+        ExamDAO examDAO = new ExamDAO();
+
+        Students stud = new Students();
         Exam exam = new Exam();
-        List<Students> listStudent1 = operation.getMiddleStudent();
-        List<Students> listStudent2 = operation.getStudentMAth();
-        List<Students> listStudent3 = operation.getStudentEnlish();
-        System.out.println("Студенты, у которых оценки по экзамену  от 5 до 8: ");
+
+        List<Students> listStudent1 = studentDAO.getMiddleStudent();
+        List<Students> listStudent2 = studentDAO.getStudentMAth();
+        List<Students> listStudent3 = studentDAO.getStudentEnlish();
+        System.out.println("Студенты, у которых оценки по экзамену  от 5 до 9: ");
         for (Students st : listStudent1) {
             System.out.println(st.getFullName());
         }
@@ -31,11 +36,13 @@ public class Main {
         for (Students st : listStudent3) {
             System.out.println(st.getFullName());
         }
-        stud.setSex('м');
-        operation.moveSex(stud);
+
+        stud.setSex('1');
+        stud.setId(4);
+        studentDAO.moveSex(stud);
 
         exam.setMark(3);
-        operation.removeStudents(exam);
+        examDAO.removeStudents(exam);
     }
 
 }
