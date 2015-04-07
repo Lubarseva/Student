@@ -3,6 +3,7 @@ package com.lubarseva.student.dao.impl;
 import com.lubarseva.student.Connect;
 import com.lubarseva.student.bean.Exam;
 import com.lubarseva.student.bean.Students;
+import com.lubarseva.student.bean.Subject;
 import com.lubarseva.student.dao.IStudentDAO;
 
 import java.util.List;
@@ -16,13 +17,17 @@ import java.util.List;
  */
 public class StudentDAO extends Connect implements IStudentDAO {
     @Override
-    public List<Students> getMiddleStudent() {
+    public List<Students> getMiddleStudent(int first, int last) {
         List<Students> studentList = new ArrayList<Students>();
         Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
         try {
             conn = getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT DISTINCT student.fullName FROM test  INNER JOIN student ON test.studentId=student.id WHERE (test.mark >= 5 AND test.mark <=9);");
+            stmt = conn.prepareStatement("SELECT DISTINCT student.fullName FROM test  INNER JOIN student ON test.studentId=student.id WHERE (test.mark >=? AND test.mark <=?);");
+            stmt.setInt(1, first);
+            stmt.setInt(2, last);
+            rs = stmt.executeQuery();
             Students student = null;
             while (rs.next()) {
                 student = new Students();
@@ -32,20 +37,23 @@ public class StudentDAO extends Connect implements IStudentDAO {
             stmt.close();
             rs.close();
         } catch (SQLException e) {
-            System.out.println("SQLConntection Exception. " + e);
+            System.out.println("SQLConnection Exception. " + e);
         }
         return studentList;
 
     }
 
     @Override
-    public List<Students> getStudentMAth() {
+    public List<Students> getStudentSubject(Subject subject) {
         List<Students> studentList = new ArrayList<Students>();
         Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
         try {
             conn = getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT DISTINCT student.fullName FROM test  INNER JOIN student ON test.studentId=student.id WHERE (test.subjectId=1);");
+            stmt = conn.prepareStatement("SELECT DISTINCT student.fullName FROM test  INNER JOIN student ON test.studentId=student.id WHERE (test.subjectId=?);");
+            stmt.setInt(1, subject.getId());
+            rs = stmt.executeQuery();
             Students student = null;
             while (rs.next()) {
                 student = new Students();
@@ -62,7 +70,7 @@ public class StudentDAO extends Connect implements IStudentDAO {
     }
 
     @Override
-    public List<Students> getStudentEnlish() {
+    public List<Students> getStudentEnglish() {
         List<Students> studentList = new ArrayList<Students>();
         Connection conn = null;
         try {
@@ -99,6 +107,25 @@ public class StudentDAO extends Connect implements IStudentDAO {
             System.out.println(e);
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void deleteStudent(Students student) {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+//            stmt = conn.prepareStatement("DELETE FROM test  WHERE test.studentId=?");
+//            stmt.setInt(1,student.getId());
+//            stmt.execute();
+            stmt = conn.prepareStatement("DELETE FROM student WHERE id=?");
+            stmt.setInt(1, student.getId());
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
